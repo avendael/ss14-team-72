@@ -8,7 +8,7 @@
 </div>
 
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
+  <h1>JukeDoge</h1>
   <p class="lead">
     <img src="images/doge_avatar.jpeg" alt="jukedoge"><br>
     So musik. Much songs. Wow
@@ -18,6 +18,12 @@
 
 <div class="row">
   <p><button class="btn btn-success" ng-click="addSong()">Add Song</button></p>
+
+  <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player autoplay="true">
+  </audio>
+  <span ng-show="audioPlayer.playing">Player status: Playing</span>
+  <span ng-show="!audioPlayer.playing">Player status: Paused</span>
+
   <ul>
     <li ng-repeat="song in playlistFirebase">
       {{ song.title }}

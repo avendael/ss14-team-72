@@ -12,9 +12,15 @@ angular.module('jukedogeApp')
         loginService.logout();
       };
 
+      $scope.playlist = [
+        {
+          "src":"http://upload.wikimedia.org/wikipedia/en/d/d0/Rick_Astley_-_Never_Gonna_Give_You_Up.ogg",
+          "type":"audio/ogg"
+        }
+      ];
+
       // Wrap everything in checkLogin because the user must be logged in.
       loginService.checkLogin(function success(user) {
-        $log.info('login success');
         $scope.userFirebase = $firebase(new Firebase(firebaseUrl + user.uid));
         $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + user.uid + playlistUrl));
 
@@ -25,6 +31,11 @@ angular.module('jukedogeApp')
 
           $scope.userFirebase.$save('peer_id');
           $scope.userFirebase.$save('username');
+        });
+
+        peer.on('error', function(error) {
+          $log.info('peer error');
+          $log.info(error);
         });
 
         $scope.addSong = function() {
