@@ -1,9 +1,20 @@
 'use strict';
+var AddSongCtrl = function($scope, $modalInstance) {
+  $scope.song = {};
+  $scope.ok = function() {
+    $modalInstance.close($scope.song);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};
 
 angular.module('mixdogeApp')
   .controller(
     'MainCtrl',
-    function ($scope, $firebase, $log, firebaseUrl, playlistUrl, peerKey, loginService, orderByPriorityFilter) {
+    function ($scope, $firebase, $log, $modal, firebaseUrl, playlistUrl, peerKey,
+              loginService, orderByPriorityFilter) {
       $scope.audioPlayer = {
         max: 0,
         position: 0
@@ -52,18 +63,24 @@ angular.module('mixdogeApp')
           $log.info(error);
         });
 
+        $scope.openAddSong = function() {
+          var modalInstance = $modal.open({
+            templateUrl: 'add-song.html',
+            controller: AddSongCtrl
+          });
+
+          modalInstance.result.then(function(song) {
+            $scope.addSong(song);
+          }, function() {
+            $log.info('Modal dismissed at: ' + new Date());
+          });
+        };
+
         $scope.playSong = function(index) {
           $scope.audioPlayer.play(index);
         };
 
-        $scope.addSong = function() {
-          var song = {
-            title: 'Predictable notype' + Math.floor(Math.random() * 100),
-            artist: 'Korn',
-            src: 'http://upload.wikimedia.org/wikipedia/en/7/79/Korn_-_Predictable_%28demo%29.ogg',
-            media: ''
-          };
-
+        $scope.addSong = function(song) {
           $scope.playlistFirebase.$add(song);
           $scope.playlist.push(song);
         };
