@@ -321,9 +321,21 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
+    },
+
+    divshot: {
+      server: {
+        name: "jukedoge",
+        root: "./dist",
+        clean_urls: true,
+        error_page: "404.html",
+        cache_control: {},
+        routes: {}
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-divshot');
 
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
