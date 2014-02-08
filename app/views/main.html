@@ -39,7 +39,7 @@
       <div>
         <form style="padding-left:10px">
           <div class="form-group">
-            <button type="button" class="btn btn-primary" ng-click="addSong()">Add Song</button>
+            <button type="button" class="btn btn-primary" ng-click="openAddSong()">Add Song</button>
           </div>
         </form>
         <ul class="list-group" style="height:500px;overflow:auto;">
@@ -116,7 +116,7 @@
   </div>
 
   <div class="modal-body">
-    <form class="form-horizontal">
+    <form class="form-horizontal" role="form">
       <div class="form-group">
         <label for="songTitle"
                class="control-label">
@@ -131,18 +131,20 @@
       <div class="form-group">
         <label for="songUrl"
                class="control-label">
-          Title
+          Source URL
         </label>
         <input id="songUrl"
                type="text"
-               name="songTitle"
+               name="songUrl"
                class="form-control"
-               ng-model="song.title">
+               ng-model="song.src">
       </div>
     </form>
-    <input type="text"
-           name="songUrl"
-           ng-model="song.src">
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Save</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 
