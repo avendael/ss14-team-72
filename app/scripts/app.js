@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ss14-team72', [
+angular.module('jukedogeApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -8,13 +8,24 @@ angular.module('ss14-team72', [
   'firebase',
   'ui.bootstrap'
 ])
-  .config(function ($routeProvider) {
+  .config(function($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        templateUrl: '404.html'
+        // redirectTo: '/'
       });
+  })
+  .run(function($rootScope, $log, loginService) {
+    $rootScope.$on('$firebaseSimpleLogin:logout', function(event) {
+      $log.info('logout event ' + event);
+      loginService.redirectToLogin();
+    });
   });
