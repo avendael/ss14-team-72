@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jukedogeApp')
+angular.module('mixdogeApp')
   .controller(
     'MainCtrl',
     function ($scope, $firebase, $log, firebaseUrl, playlistUrl, peerKey, loginService, orderByPriorityFilter) {
@@ -25,6 +25,8 @@ angular.module('jukedogeApp')
         $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + user.uid + playlistUrl));
 
         $scope.$watchCollection('playlistFirebase', function() {
+          $log.info('song ' + JSON.stringify($scope.playlistFirebase['-JFF_rl9VumGy21nXeoV']));
+
           // Innefficient, yes, but if I use [] or simply reassign, it won't work
           $scope.playlist.splice(0, $scope.playlist.length);
           var orderedPlaylist = orderByPriorityFilter($scope.playlistFirebase);
@@ -50,12 +52,15 @@ angular.module('jukedogeApp')
           $log.info(error);
         });
 
+        $scope.playSong = function(index) {
+          $scope.audioPlayer.play(index);
+        };
+
         $scope.addSong = function() {
           var song = {
-            title: 'Predictable ' + Math.floor(Math.random() * 100),
+            title: 'Predictable notype' + Math.floor(Math.random() * 100),
             artist: 'Korn',
             src: 'http://upload.wikimedia.org/wikipedia/en/7/79/Korn_-_Predictable_%28demo%29.ogg',
-            type: 'audio/ogg',
             media: ''
           };
 
@@ -64,6 +69,7 @@ angular.module('jukedogeApp')
         };
 
         $scope.updateSong = function(song) {
+          $log.info(song);
           song.title = 'favorite song ' + Math.floor(Math.random() * 100);
 
           $scope.playlistFirebase.$save();

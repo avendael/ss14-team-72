@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jukedogeApp')
+angular.module('mixdogeApp')
   .service(
     'loginService',
     function loginService($firebaseSimpleLogin, $location, firebaseUrl) {

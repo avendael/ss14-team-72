@@ -1,4 +1,4 @@
 'use strict';
 
-angular.module('jukedogeApp')
+angular.module('mixdogeApp')
   .constant('playlistUrl', '/playlist');

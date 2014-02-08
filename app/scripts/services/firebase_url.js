@@ -1,4 +1,4 @@
 'use strict';
 
-angular.module('jukedogeApp')
+angular.module('mixdogeApp')
   .constant('firebaseUrl', 'https://ss14-team-72.firebaseio.com/');
