@@ -3,7 +3,7 @@
 angular.module('jukedogeApp')
   .controller(
     'MainCtrl',
-    function ($scope, $firebase, $log, firebaseUrl, playlistUrl, peerKey, loginService) {
+    function ($scope, $firebase, $log, firebaseUrl, playlistUrl, peerKey, loginService, orderByPriorityFilter) {
       var peer = new Peer({key: peerKey});
 
       $scope.firebase = $firebase(new Firebase(firebaseUrl));
@@ -12,11 +12,20 @@ angular.module('jukedogeApp')
         loginService.logout();
       };
 
+      $scope.playlist = [];
+
       // Wrap everything in checkLogin because the user must be logged in.
       loginService.checkLogin(function success(user) {
-        $log.info('login success');
         $scope.userFirebase = $firebase(new Firebase(firebaseUrl + user.uid));
         $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + user.uid + playlistUrl));
+
+        $scope.$watchCollection('playlistFirebase', function() {
+          // Innefficient, yes, but if I use [] or simply reassign, it won't work
+          $scope.playlist.splice(0, $scope.playlist.length);
+          orderByPriorityFilter($scope.playlistFirebase).forEach(function(element) {
+            $scope.playlist.push(element);
+          });
+        });
 
         peer.on('open', function(peerId) {
           $log.info('your peer id is ' + peerId);
@@ -27,10 +36,22 @@ angular.module('jukedogeApp')
           $scope.userFirebase.$save('username');
         });
 
+        peer.on('error', function(error) {
+          $log.info('peer error');
+          $log.info(error);
+        });
+
         $scope.addSong = function() {
-          $scope.playlistFirebase.$add({
-            title: 'song ' + Math.floor(Math.random() * 100)
-          });
+          var song = {
+            title: 'Predictable ' + Math.floor(Math.random() * 100),
+            artist: 'Korn',
+            src: 'http://upload.wikimedia.org/wikipedia/en/7/79/Korn_-_Predictable_%28demo%29.ogg',
+            type: 'audio/ogg',
+            media: ''
+          };
+
+          $scope.playlistFirebase.$add(song);
+          $scope.playlist.push(song);
         };
 
         $scope.updateSong = function(song) {
@@ -42,5 +63,6 @@ angular.module('jukedogeApp')
         $scope.removeSong = function(index) {
           $scope.playlistFirebase.$remove($scope.playlistFirebase.$getIndex()[index]);
         };
+        $log.info('playlist firebase ' + JSON.stringify($scope.playlistFirebase));
       });
     });
