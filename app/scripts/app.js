@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jukedoge', [
+angular.module('jukedogeApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -14,7 +14,12 @@ angular.module('jukedoge', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        templateUrl: '404.html'
+        // redirectTo: '/'
       });
   });
