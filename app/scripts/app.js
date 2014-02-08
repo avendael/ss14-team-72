@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ss14-team72', [
+angular.module('jukedoge', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
