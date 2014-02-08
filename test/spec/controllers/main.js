@@ -3,7 +3,7 @@
 describe('Controller: MainCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('staticshowdownApp'));
+  beforeEach(module('ss14-team72'));
 
   var MainCtrl,
     scope;
