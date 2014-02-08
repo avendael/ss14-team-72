@@ -4,31 +4,63 @@
     <li><a ng-href="#">About</a></li>
     <li><a ng-href="#">Contact</a></li>
   </ul>
-  <h3 class="text-muted">staticshowdown</h3>
+  <h3 class="text-muted">jukedoge</h3>
 </div>
 
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
+  <h1>JukeDoge</h1>
   <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
+    <img src="images/doge_avatar.jpeg" alt="jukedoge"><br>
+    So musik. Much songs. Wow
   </p>
   <p><button class="btn btn-lg btn-success" ng-click="logout()">Logout!</button></p>
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
+<div class="row">
+  <p><button class="btn btn-success" ng-click="addSong()">Add Song</button></p>
 
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
+  <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
+  </audio>
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+  <div class="btn-group">
+    <button type="button"
+            class="btn btn-sm btn-primary"
+            ng-click="audioPlayer.prev()">
+      <i class="fa fa-backward"></i>
+    </button>
+    <button type="button"
+            class="btn btn-sm btn-primary"
+            ng-click="audioPlayer.pause()">
+      <i class="fa fa-pause"></i>
+    </button>
+    <button type="button"
+            class="btn btn-sm btn-primary"
+            ng-click="audioPlayer.play()">
+      <i class="fa fa-play"></i>
+    </button>
+    <button type="button" class="btn btn-sm btn-primary">
+      <i class="fa fa-stop"></i>
+    </button>
+    <button type="button"
+            class="btn btn-sm btn-primary"
+            ng-click="audioPlayer.next(true)">
+      <i class="fa fa-forward"></i>
+    </button>
+  </div>
+
+  <ul>
+    <li ng-repeat="song in playlistFirebase">
+      {{ song.title }}
+      <button class="btn btn-primary"
+              ng-click="updateSong(song)">
+        Favorite!
+      </button>
+      <button class="btn btn-primary"
+              ng-click="removeSong($index)">
+        Remove Song
+      </button>
+    </li>
+  </ul>
 </div>
 
 <div class="footer">

@@ -6,7 +6,8 @@ angular.module('jukedogeApp', [
   'ngSanitize',
   'ngRoute',
   'firebase',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'audioPlayer'
 ])
   .config(function($routeProvider) {
     $routeProvider
