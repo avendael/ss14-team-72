@@ -1,10 +1,12 @@
 'use strict';
 
-angular.module('staticshowdownApp', [
+angular.module('ss14-team72', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'firebase',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider) {
     $routeProvider
