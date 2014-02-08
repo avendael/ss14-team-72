@@ -2,7 +2,13 @@
 
 angular.module('jukedogeApp')
   .controller('LoginCtrl', function ($scope, loginService) {
-      $scope.onLoginGithub = function() {
-        loginService.loginGithub();
-      };
+    loginService.checkLogin(function success() {
+      loginService.redirectToMain();
+    }, function error() {
+      // noop. We're already here
+    });
+
+    $scope.onLoginGithub = function() {
+      loginService.loginGithub();
+    };
   });
