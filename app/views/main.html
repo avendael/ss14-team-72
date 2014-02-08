@@ -1,33 +1,78 @@
-<div class="header">
-  <ul class="nav nav-pills pull-right">
-    <li class="active"><a ng-href="#">Home</a></li>
-    <li><a ng-href="#">About</a></li>
-    <li><a ng-href="#">Contact</a></li>
-  </ul>
-  <h3 class="text-muted">jukedoge</h3>
-</div>
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">jukedoge</a>
+    </div> 
 
-<div class="jumbotron">
-  <h1>JukeDoge</h1>
-  <p class="lead">
-    <img src="images/doge_avatar.jpeg" alt="jukedoge"><br>
-    So musik. Much songs. Wow
-  </p>
-  <p><button class="btn btn-lg btn-success" ng-click="logout()">Logout!</button></p>
-</div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav pull-left">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
 
-<div class="row">
-  <p><button class="btn btn-success" ng-click="addSong()">Add Song</button></p>
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="#" ng-click="logout()">Logout</a></li>
+      </ul>
+    </div>
 
-  <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
-  </audio>
+  </div>
+</nav>
 
-  <div class="btn-group">
-    <button type="button"
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <form role="form">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-10">
+            <input type="search" class="form-control" placeholder="Search">
+          </div>
+          <div type="col-md-2">
+            <button type="button" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div>
+        <form style="padding-left:10px">
+          <div class="form-group">
+          <button type="button" class="btn btn-primary" ng-click="addSong()">Add Song</button> 
+          </div>
+        </form>
+        <ul class="list-group" style="height:500px;overflow:auto;">
+          <li class="list-group-item row" ng-repeat="song in playlistFirebase">
+            <div class="col-md-2">
+              <button type="button" ng-click="updateSong(song)" class="btn btn-default">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              </button>  
+              <button type="button" class="btn btn-default" ng-click="removeSong($index)">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>  
+            </div>
+            <div class="col-md-10">
+              <a href="#" class="list-group-item">
+                {{ song.title }} 
+              </a>
+            </div>
+          </li>
+        </ul> 
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
+    </audio>
+
+    <div class="btn-group">
+      <button type="button"
             class="btn btn-sm btn-primary"
             ng-click="audioPlayer.prev()">
-      <i class="fa fa-backward"></i>
-    </button>
+        <i class="fa fa-backward"></i>
+      </button>
     <button type="button"
             class="btn btn-sm btn-primary"
             ng-click="audioPlayer.pause()">
@@ -48,19 +93,7 @@
     </button>
   </div>
 
-  <ul>
-    <li ng-repeat="song in playlistFirebase">
-      {{ song.title }}
-      <button class="btn btn-primary"
-              ng-click="updateSong(song)">
-        Favorite!
-      </button>
-      <button class="btn btn-primary"
-              ng-click="removeSong($index)">
-        Remove Song
-      </button>
-    </li>
-  </ul>
+  </div>
 </div>
 
 <div class="footer">
