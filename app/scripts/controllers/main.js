@@ -4,6 +4,11 @@ angular.module('jukedogeApp')
   .controller(
     'MainCtrl',
     function ($scope, $firebase, $log, firebaseUrl, playlistUrl, peerKey, loginService, orderByPriorityFilter) {
+      $scope.audioPlayer = {
+        max: 0,
+        position: 0
+      };
+
       var peer = new Peer({key: peerKey});
 
       $scope.firebase = $firebase(new Firebase(firebaseUrl));
@@ -22,9 +27,13 @@ angular.module('jukedogeApp')
         $scope.$watchCollection('playlistFirebase', function() {
           // Innefficient, yes, but if I use [] or simply reassign, it won't work
           $scope.playlist.splice(0, $scope.playlist.length);
-          orderByPriorityFilter($scope.playlistFirebase).forEach(function(element) {
-            $scope.playlist.push(element);
-          });
+          var orderedPlaylist = orderByPriorityFilter($scope.playlistFirebase);
+
+          if (!!orderedPlaylist) {
+            orderedPlaylist.forEach(function(element) {
+              $scope.playlist.push(element);
+            });
+          }
         });
 
         peer.on('open', function(peerId) {

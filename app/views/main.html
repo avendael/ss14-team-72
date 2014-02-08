@@ -22,6 +22,21 @@
   <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
   </audio>
 
+  <!-- <progressbar value="audioPlayer.position" -->
+  <!--              max="audioPlayer.duration"> -->
+  <!--   <span style="color: black"> -->
+  <!--   {{ audioPlayer.formatDuration }} -->
+  <!--   </span> -->
+  <!-- </progressbar> -->
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }" style="width: 100.00000000000001%;">
+      <span class="sr-only ng-binding">100.00000000000001% Complete</span>
+    </div>
+    <div class="time" ng-show="audioPlayer.formatTime">
+      <span class="ng-binding">00:29</span><b>/</b><span class="ng-binding">00:29</span>
+    </div>
+  </div>
+
   <div class="btn-group">
     <button type="button"
             class="btn btn-sm btn-primary"
