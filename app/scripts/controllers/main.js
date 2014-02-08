@@ -10,10 +10,27 @@ var AddSongUrlCtrl = function($scope, $modalInstance) {
   };
 };
 
-var AddSoundcloudTrackCtrl = function($scope, $modalInstance, $log) {
-  SC.get('/tracks?filter=public', {limit: 10}, function(tracks) {
-    $scope.tracks = tracks;
+var AddSoundcloudTrackCtrl = function($scope, $modalInstance, $log, $timeout) {
+  $scope.currentPage = 0;
+  $scope.tracks = [];
+
+  var getTracks = function() {
+    SC.get('/tracks?filter=public',
+           {offset: $scope.currentPage * 10, limit: 10},
+           function(tracks) {
+             $scope.$apply(function() {
+               $scope.tracks = tracks;
+             });
+           });
+  };
+
+  $scope.$watch('currentPage', function() {
+    getTracks();
   });
+
+  $scope.setPage = function(page) {
+    $scope.currentPage = page;
+  };
 
   $scope.ok = function(index) {
     $modalInstance.close($scope.tracks[index]);
@@ -22,19 +39,19 @@ var AddSoundcloudTrackCtrl = function($scope, $modalInstance, $log) {
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
+  getTracks();
 };
 
 angular.module('mixdogeApp')
   .controller(
     'MainCtrl',
-    function ($scope, $firebase, $log, $modal, firebaseUrl, playlistUrl, peerKey,
-              loginService, orderByPriorityFilter) {
+    function ($scope, $firebase, $log, $modal, firebaseUrl, playlistUrl,
+              loginService, soundcloudId, orderByPriorityFilter) {
       $scope.audioPlayer = {
         max: 0,
         position: 0
       };
-
-      var peer = new Peer({key: peerKey});
 
       $scope.firebase = $firebase(new Firebase(firebaseUrl));
 
@@ -48,7 +65,9 @@ angular.module('mixdogeApp')
       loginService.checkLogin(function success(user) {
         $scope.userFirebase = $firebase(new Firebase(firebaseUrl + user.uid));
         $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + user.uid + playlistUrl));
+        $scope.userFirebase.username = user.username;
 
+        $scope.userFirebase.$save('username');
         $scope.$watchCollection('playlistFirebase', function() {
           $log.info('song ' + JSON.stringify($scope.playlistFirebase['-JFF_rl9VumGy21nXeoV']));
 
@@ -61,20 +80,6 @@ angular.module('mixdogeApp')
               $scope.playlist.push(element);
             });
           }
-        });
-
-        peer.on('open', function(peerId) {
-          $log.info('your peer id is ' + peerId);
-          $scope.userFirebase.peer_id = peerId;
-          $scope.userFirebase.username = user.username;
-
-          $scope.userFirebase.$save('peer_id');
-          $scope.userFirebase.$save('username');
-        });
-
-        peer.on('error', function(error) {
-          $log.info('peer error');
-          $log.info(error);
         });
 
         $scope.openAddSongUrl = function() {
@@ -97,7 +102,7 @@ angular.module('mixdogeApp')
           });
 
           modalInstance.result.then(function(song) {
-            song.src = song.uri + '/stream?client_id=702ac7423535a3cd296fb0c8751a8a26';
+            song.src = song.uri + '/stream?client_id=' + soundcloudId;
             $scope.addSong(song);
           }, function() {
             $log.info('Modal dismissed at: ' + new Date());

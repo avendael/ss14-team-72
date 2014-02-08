@@ -19,9 +19,12 @@ angular.module('mixdogeApp', [
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/user', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl'
+      })
       .otherwise({
         templateUrl: '404.html'
-        // redirectTo: '/'
       });
   })
   .run(function($rootScope, $log, loginService) {
@@ -30,8 +33,8 @@ angular.module('mixdogeApp', [
       loginService.redirectToLogin();
     });
   })
-  .run(function() {
+  .run(function(soundcloudId) {
     SC.initialize({
-      client_id: '702ac7423535a3cd296fb0c8751a8a26'
+      client_id: soundcloudId
     });
   });

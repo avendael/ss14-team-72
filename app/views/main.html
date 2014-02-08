@@ -122,6 +122,11 @@
   </div>
 
   <div class="modal-body">
+    <pager total-items="10000"
+           on-select-page="setPage(page)"
+           page="currentPage">
+    </pager>
+
     <ul class="list-group" style="height: auto;overflow:auto;">
       <li class="list-group-item row" ng-repeat="track in tracks">
         <div class="col-md-2" style="margin-right: 20px">
@@ -135,6 +140,11 @@
         </div>
       </li>
     </ul>
+
+    <pager total-items="10000"
+           on-select-page="setPage(page)"
+           page="currentPage">
+    </pager>
   </div>
 
   <div class="modal-footer">
