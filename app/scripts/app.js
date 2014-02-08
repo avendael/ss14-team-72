@@ -8,7 +8,7 @@ angular.module('jukedogeApp', [
   'firebase',
   'ui.bootstrap'
 ])
-  .config(function ($routeProvider) {
+  .config(function($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -22,4 +22,10 @@ angular.module('jukedogeApp', [
         templateUrl: '404.html'
         // redirectTo: '/'
       });
+  })
+  .run(function($rootScope, $log, loginService) {
+    $rootScope.$on('$firebaseSimpleLogin:logout', function(event) {
+      $log.info('logout event ' + event);
+      loginService.redirectToLogin();
+    });
   });

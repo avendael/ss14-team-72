@@ -52,5 +52,13 @@ angular.module('jukedogeApp')
         });
       };
 
+      /**
+       * An alias for loginService.$logout. Watch for the '$firebaseSimpleLogin:logout'
+       * event to execute a callback after this runs.
+       */
+      loginService.logout = function() {
+        loginService.$logout();
+      };
+
       return loginService;
     });
