@@ -1,5 +1,5 @@
 {
-  "name": "ss14-team72",
+  "name": "jukedoge",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -15,7 +15,8 @@
     "angularfire": "~0.6.0",
     "peerjs": "~0.3.7",
     "angular-bootstrap": "~0.10.0",
-    "bootflat": "*"
+    "bootflat": "*",
+    "font-awesome": "~4.0.3"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
