@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jukedogeApp', [
+angular.module('mixdogeApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

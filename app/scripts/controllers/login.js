@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jukedogeApp')
+angular.module('mixdogeApp')
   .controller('LoginCtrl', function ($scope, loginService) {
     loginService.checkLogin(function success() {
       loginService.redirectToMain();
