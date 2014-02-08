@@ -29,4 +29,9 @@ angular.module('mixdogeApp', [
       $log.info('logout event ' + event);
       loginService.redirectToLogin();
     });
+  })
+  .run(function() {
+    SC.initialize({
+      client_id: '702ac7423535a3cd296fb0c8751a8a26'
+    });
   });

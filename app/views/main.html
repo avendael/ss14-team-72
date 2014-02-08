@@ -39,7 +39,13 @@
       <div>
         <form style="padding-left:10px">
           <div class="form-group">
-            <button type="button" class="btn btn-primary" ng-click="openAddSong()">Add Song</button>
+            <button type="button" class="btn btn-primary" ng-click="openAddSongUrl()">
+              <i class="fa fa-cloud-upload"></i> Add URL
+            </button>
+
+            <button type="button" class="btn btn-primary" ng-click="openAddSoundcloudTrack()">
+              <img src="images/soundcloud_white.png">
+            </button>
           </div>
         </form>
         <ul class="list-group" style="height:500px;overflow:auto;">
@@ -110,13 +116,39 @@
   </div>
 </div>
 
+<script type="text/ng-template" id="add-soundcloud.html">
+  <div class="modal-header">
+    <h2>Add Soundcloud Track</h2>
+  </div>
+
+  <div class="modal-body">
+    <ul class="list-group" style="height: auto;overflow:auto;">
+      <li class="list-group-item row" ng-repeat="track in tracks">
+        <div class="col-md-2" style="margin-right: 20px">
+          <img ng-src="{{ track.artwork_url || 'images/doge_avatar.jpeg' }}"
+               style="max-width: 100px; max-height: 100px"/>
+        </div>
+        <div class="col-md-9">
+          <a href="javascript:void(0)" class="list-group-item" ng-click="ok($index)">
+            {{ track.title }} - {{ track.user.username }}
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
 <script type="text/ng-template" id="add-song.html">
   <div class="modal-header">
     <h2>Add Song</h2>
   </div>
 
   <div class="modal-body">
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal col-md-12" role="form">
       <div class="form-group">
         <label for="songTitle"
                class="control-label">
