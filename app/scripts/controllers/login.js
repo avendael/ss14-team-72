@@ -1,9 +1,7 @@
 'use strict';
 
 angular.module('jukedogeApp')
-  .controller(
-    'LoginCtrl',
-    function ($scope, $location, $firebaseSimpleLogin, $log, firebaseUrl, loginService) {
+  .controller('LoginCtrl', function ($scope, loginService) {
       $scope.onLoginGithub = function() {
         loginService.loginGithub();
       };
