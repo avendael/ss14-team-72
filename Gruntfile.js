@@ -326,7 +326,7 @@ module.exports = function (grunt) {
     divshot: {
       server: {
         name: "ss14-team-72",
-        root: "./dist",
+        root: "./app",
         clean_urls: true,
         error_page: "404.html",
         cache_control: {},

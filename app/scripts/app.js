@@ -19,14 +19,22 @@ angular.module('mixdogeApp', [
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/user', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl'
+      })
       .otherwise({
         templateUrl: '404.html'
-        // redirectTo: '/'
       });
   })
   .run(function($rootScope, $log, loginService) {
     $rootScope.$on('$firebaseSimpleLogin:logout', function(event) {
       $log.info('logout event ' + event);
       loginService.redirectToLogin();
+    });
+  })
+  .run(function(soundcloudId) {
+    SC.initialize({
+      client_id: soundcloudId
     });
   });
