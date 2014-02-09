@@ -74,19 +74,13 @@
   </div>
 </form>
 
+<div class="add">
+  <button class="add-url" ng-click="openAddSongUrl()">Add URL</button>
+  <button class="soundcloud" ng-click="openAddSoundcloudTrack()">Soundcloud</button>
+</div>
+
 <div class="row">
   <div>
-    <form style="padding-left:10px">
-      <div class="form-group">
-        <button type="button" class="btn btn-primary" ng-click="openAddSongUrl()">
-          <i class="fa fa-cloud-upload"></i> Add URL
-        </button>
-
-        <button type="button" class="btn btn-primary" ng-click="openAddSoundcloudTrack()">
-          <img src="images/soundcloud_white.png">
-        </button>
-      </div>
-    </form>
     <ul class="list-group" style="height:500px;overflow:auto;">
       <li class="list-group-item row" ng-repeat="song in playlistFirebase">
         <div class="col-md-2">
