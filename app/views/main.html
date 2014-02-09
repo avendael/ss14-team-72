@@ -58,8 +58,11 @@
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
             </div>
-            <div class="col-md-10">
-              <a href="javascript:void(0)" class="list-group-item" ng-click="playSong($index)">
+            <div class="col-md-10" >
+              <a href="javascript:void(0)" 
+                 class="list-group-item" 
+                 ng-class="{active: audioPlayer.currentTrack - 1 === $index}"
+                 ng-click="playSong($index)">
                 {{ song.title }}
               </a>
             </div>
