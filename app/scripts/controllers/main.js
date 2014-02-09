@@ -136,13 +136,14 @@ angular.module('mixdogeApp')
 
 
         $scope.$watch('audioPlayer.currentTime',  function(newVal, oldVal) {
-            if (Math.abs(newVal - $scope.audioPlayer.duration) <= 1 && oldVal > 0) {
-                if ($scope.audioPlayer.currentTrack + 1 >= $scope.audioPlayer.tracks) {
-                    $scope.playSong(0);
-                } else {
-                    $scope.audioPlayer.next(true);
-                }
+          if (Math.abs(newVal - $scope.audioPlayer.duration) <= 1 && oldVal > 0) {
+            if ($scope.audioPlayer.currentTrack + 1 > $scope.audioPlayer.tracks) {
+              // $scope.playSong(0);
+              $scope.audioPlayer.load($scope.playlist[0], true);
+            } else {
+              $scope.audioPlayer.next(true);
             }
+          }
         });
 
         $scope.$on('audioplayer:play', function() {
