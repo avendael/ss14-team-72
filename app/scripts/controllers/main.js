@@ -129,5 +129,59 @@ angular.module('mixdogeApp')
           $scope.playlistFirebase.$remove($scope.playlistFirebase.$getIndex()[index]);
         };
         $log.info('playlist firebase ' + JSON.stringify($scope.playlistFirebase));
+
+        $scope.$on('audioplayer:play', function() {
+          var song = $scope.playlist[$scope.audioPlayer.currentTrack - 1];
+          var tags = song.tag_list.replace(/\"/g, '').split(' ');
+          dogeOn(tags);
+        });
+
+        $scope.$on('audioplayer:pause', function() {
+          dogeOff();
+        });
+
       });
     });
+
+var dogeInterval;
+var prefixes = ['very', 'much', 'so'];
+
+function randChoice(a) {
+  return a[Math.floor(Math.random() * a.length)];
+}
+
+function randColor() {
+  var rgb = [];
+  for (var i = 0; i < 3; i++) {
+    rgb.push((128 + Math.floor(Math.random() * 128)).toString(16));
+  }
+  return '#' + rgb.join('');
+}
+
+function dogeOn(tags) {
+  dogeInterval = setTimeout(function() {
+    var text = '';
+    if (Math.random() > 0.05) {
+      text = randChoice(prefixes);
+      text += ' ' + randChoice(tags).toLowerCase();
+    } else {
+      text = 'wow';
+    }
+    var span = document.createElement('span');
+    span.className = 'doge-text fadeOut animated';
+    span.innerText = text;
+    span.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
+    span.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
+    span.style.fontSize = (8 + Math.random() * 20) + 'px';
+    span.style.color = randColor();
+    $(span).one('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
+      $(this).remove();
+    });
+    document.body.appendChild(span);
+    dogeOn(tags);
+  }, Math.random() * 500);
+}
+
+function dogeOff() {
+  clearTimeout(dogeInterval);
+}
