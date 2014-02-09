@@ -17,7 +17,8 @@
     "angular-bootstrap": "~0.10.0",
     "bootflat": "*",
     "font-awesome": "~4.0.3",
-    "angular-audio-playlist": "~0.2.1"
+    "angular-audio-playlist": "~0.2.1",
+    "animate.css": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
