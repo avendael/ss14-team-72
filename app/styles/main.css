@@ -2,78 +2,105 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  background: #fe9;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+body, h1, h2, h3, h4, h5 {
+  font-family: Comic Sans MS, Patrick Hand, cursive;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+.mixdoge {
+  width: 512px;
+  margin: 0 auto;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+.mixdoge h1 {
+  letter-spacing: -0.2em;
 }
 
-/* Customize container */
-/* @media (min-width: 768px) { */
-/*   .container { */
-/*     max-width: 730px; */
-/*   } */
-/* } */
-/* .container-narrow > hr { */
-/*   margin: 30px 0; */
-/* } */
+.mixdoge h1 span:nth-child(1) { color: #f90; }
+.mixdoge h1 span:nth-child(2) { color: #f0f; }
+.mixdoge h1 span:nth-child(3) { color: #09f; }
+.mixdoge h1 span:nth-child(4) { color: #0f3; }
+.mixdoge h1 span:nth-child(5) { color: #99f; }
+.mixdoge h1 span:nth-child(6) { color: #00f; }
+.mixdoge h1 span:nth-child(7) { color: #90f; }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+/* Walkman */
+.walkman {
+  position: relative;
+  width: 512px;
+  height: 370px;
+  margin: 0 auto;
 }
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+.walkman-part {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 512px;
+  height: 370px;
 }
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
+@-webkit-keyframes spin {
+  to { transform: rotate(1turn); }
 }
-.marketing p + h4 {
-  margin-top: 28px;
+@-moz-keyframes spin {
+  to { transform: rotate(1turn); }
 }
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+@-o-keyframes spin {
+  to { transform: rotate(1turn); }
+}
+@keyframes spin {
+  to { transform: rotate(1turn); }
+}
+.tape-doge {
+  position: absolute;
+  -webkit-animation: spin 5s infinite; /* Safari 4+ */
+  -moz-animation:    spin 5s infinite; /* Fx 5+ */
+  -o-animation:      spin 5s infinite; /* Opera 12+ */
+  animation:         spin 5s infinite; /* IE 10+ */
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -o-animation-play-state: paused;
+  animation-play-state: paused;
+}
+.tape-doge-spin {
+  -webkit-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -o-animation-play-state: running;
+  animation-play-state: running;
+}
+.tape-doge-1 {
+  width: 184px;
+  top: 95px;
+  left: 60px;
+}
+.tape-doge-2 {
+  width: 176px;
+  top: 100px;
+  right: 60px;
+}
+.walkman-controls {
+  position: absolute;
+  right: 66px;
+}
+.walkman-controls button {
+  float: left;
+  border: 0;
+  background: transparent;
+  text-indent: -1000em;
+  width: 57px;
+  margin-left: 10px;
+}
+.progress {
+  margin: 20px 0;
+  color: #f0f;
+  box-shadow: none;
+  background-color: #fcf;
+}
+.progress-bar {
+  background-color: #f0f;
 }

@@ -1,118 +1,109 @@
-<nav class="navbar navbar-inverse" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand">mixdoge</a>
-    </div>
+<div class="mixdoge">
 
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav pull-left">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
+<h1>
+  <span>m</span>
+  <span>i</span>
+  <span>x</span>
+  <span>d</span>
+  <span>o</span>
+  <span>g</span>
+  <span>e</span>
+</h1>
+<a href="#" ng-click="logout()">Logout</a>
 
-      <ul class="nav navbar-nav pull-right">
-        <li><a href="#" ng-click="logout()">Logout</a></li>
-      </ul>
-    </div>
+<audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
+</audio>
 
+<div class="walkman">
+  <img class="walkman-part" src="images/walkman-back.png">
+  <img class="walkman-part" src="images/tape-back.png">
+  <img class="tape-doge tape-doge-1" src="images/doge-1.png"
+    ng-class="audioPlayer.playing ? 'tape-doge-spin' : ''">
+  <img class="tape-doge tape-doge-2" src="images/doge-2.png"
+    ng-class="audioPlayer.playing ? 'tape-doge-spin' : ''">
+  <img class="walkman-part" src="images/tape-front.png">
+  <img class="walkman-part" src="images/walkman-front.png">
+  <div class="walkman-controls clearfix">
+    <button
+      ng-click="audioPlayer.prev()">
+      Prev
+    </button>
+    <button
+      ng-show="audioPlayer.playing"
+      ng-click="audioPlayer.pause()">
+      Play
+    </button>
+    <button
+      ng-show="!audioPlayer.playing"
+      ng-click="audioPlayer.play()">
+      Play
+    </button>
+    <button
+      ng-click="audioPlayer.next(true)">
+      Next
+    </button>
   </div>
-</nav>
+</div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <form role="form">
+<div class="progress">
+  <div class="progress-bar"
+       role="progressbar"
+       aria-valuemin="0"
+       aria-valuemax="100"
+       ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"
+       style="width: 100.00000000000001%; height: 40px">
+    <span class="sr-only ng-binding" style="height: 40px">100.00000000000001% Complete</span>
+  </div>
+  <div class="time" ng-show="audioPlayer.formatTime" style="height: 40px">
+    <span class="ng-binding">{{ audioPlayer.currentTime | number:2 }}</span>
+    <b>/</b>
+    <span class="ng-binding">{{ audioPlayer.duration | number:2 }}</span>
+  </div>
+</div>
+
+<form role="form">
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-10">
+        <input type="search" class="form-control" placeholder="Search">
+      </div>
+      <div type="col-md-2">
+        <button type="button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div>
+    <form style="padding-left:10px">
       <div class="form-group">
-        <div class="row">
-          <div class="col-md-10">
-            <input type="search" class="form-control" placeholder="Search">
-          </div>
-          <div type="col-md-2">
-            <button type="button" class="btn btn-primary">Search</button>
-          </div>
-        </div>
+        <button type="button" class="btn btn-primary" ng-click="openAddSongUrl()">
+          <i class="fa fa-cloud-upload"></i> Add URL
+        </button>
+
+        <button type="button" class="btn btn-primary" ng-click="openAddSoundcloudTrack()">
+          <img src="images/soundcloud_white.png">
+        </button>
       </div>
     </form>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div>
-        <form style="padding-left:10px">
-          <div class="form-group">
-            <button type="button" class="btn btn-primary" ng-click="openAddSongUrl()">
-              <i class="fa fa-cloud-upload"></i> Add URL
-            </button>
-
-            <button type="button" class="btn btn-primary" ng-click="openAddSoundcloudTrack()">
-              <img src="images/soundcloud_white.png">
-            </button>
-          </div>
-        </form>
-        <ul class="list-group" style="height:500px;overflow:auto;">
-          <li class="list-group-item row" ng-repeat="song in playlistFirebase">
-            <div class="col-md-2">
-              <button type="button" ng-click="updateSong(song)" class="btn btn-default">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
-              </button>
-              <button type="button" class="btn btn-default" ng-click="removeSong($index)">
-                <span class="glyphicon glyphicon-trash"></span>
-              </button>
-            </div>
-            <div class="col-md-10">
-              <a href="javascript:void(0)" class="list-group-item" ng-click="playSong($index)">
-                {{ song.title }}
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="panel-footer">
-    <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
-    </audio>
-
-    <div class="progress">
-      <div class="progress-bar"
-           role="progressbar"
-           aria-valuemin="0"
-           aria-valuemax="100"
-           ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"
-           style="width: 100.00000000000001%; height: 40px">
-        <span class="sr-only ng-binding" style="height: 40px">100.00000000000001% Complete</span>
-      </div>
-      <div class="time" ng-show="audioPlayer.formatTime" style="height: 40px">
-        <span class="ng-binding">{{ audioPlayer.currentTime | number:2 }}</span>
-        <b>/</b>
-        <span class="ng-binding">{{ audioPlayer.duration | number:2 }}</span>
-      </div>
-    </div>
-
-    <div class="btn-group" style="margin: 0 auto !important; width: 50% !important">
-      <button type="button"
-              class="btn btn-sm btn-primary"
-              ng-click="audioPlayer.prev()">
-        <i class="fa fa-backward"></i>
-      </button>
-      <button type="button"
-              class="btn btn-sm btn-primary"
-              ng-show="audioPlayer.playing"
-              ng-click="audioPlayer.pause()">
-        <i class="fa fa-pause"></i>
-      </button>
-      <button type="button"
-              class="btn btn-sm btn-primary"
-              ng-show="!audioPlayer.playing"
-              ng-click="audioPlayer.play()">
-        <i class="fa fa-play"></i>
-      </button>
-      <button type="button"
-              class="btn btn-sm btn-primary"
-              ng-click="audioPlayer.next(true)">
-        <i class="fa fa-forward"></i>
-      </button>
-    </div>
-
+    <ul class="list-group" style="height:500px;overflow:auto;">
+      <li class="list-group-item row" ng-repeat="song in playlistFirebase">
+        <div class="col-md-2">
+          <button type="button" ng-click="updateSong(song)" class="btn btn-default">
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+          </button>
+          <button type="button" class="btn btn-default" ng-click="removeSong($index)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </div>
+        <div class="col-md-10">
+          <a href="javascript:void(0)" class="list-group-item" ng-click="playSong($index)">
+            {{ song.title }}
+          </a>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -193,4 +184,6 @@
 <div class="footer">
   <p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ss14-team-72.divshot.io" data-text="Check out MixDoge by Daruma Tactics" data-via="staticshowdown">Tweet</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+</div>
+
 </div>
