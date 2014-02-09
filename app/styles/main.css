@@ -25,8 +25,13 @@ header h1 {
 }
 
 header a {
-  line-height: 36px;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 0 5px;
   display: inline-block;
+  line-height: 20px;
+  margin-top: 8px;
+  text-transform: lowercase;
 }
 
 header h1 span:nth-child(1) { color: #f90; }
