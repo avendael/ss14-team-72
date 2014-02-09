@@ -47,7 +47,7 @@ angular.module('mixdogeApp')
   .controller(
     'MainCtrl',
     function ($scope, $firebase, $modal, $routeParams, $log, firebaseUrl, playlistUrl,
-              loginService, soundcloudId, orderByPriorityFilter) {
+              favoriteUrl, loginService, soundcloudId, orderByPriorityFilter) {
       $scope.audioPlayer = {
         max: 0,
         position: 0
@@ -60,7 +60,6 @@ angular.module('mixdogeApp')
       };
 
       $scope.playlist = [];
-      $scope.favoriteList = [];
 
       // Wrap everything in checkLogin because the user must be logged in.
       loginService.checkLogin(function success(user) {
@@ -75,19 +74,8 @@ angular.module('mixdogeApp')
         }
 
         $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + uid + playlistUrl));
-        $scope.favoriteListFirebase = $firebase(new Firebase(firebaseUrl + loginService.user.uid
-                    + '/upvote_list/'));
-
-        $scope.$watchCollection('favoriteListFirebase', function() {
-          $scope.favoriteList.splice(0, $scope.favoriteList.length);
-          var orderedFavoriteList = orderByPriorityFilter($scope.favoriteListFirebase);
-
-          if (!!orderedFavoriteList && !!orderedFavoriteList.forEach) {
-            orderedFavoriteList.forEach(function(element) {
-              $scope.favoriteList.push(element);
-            });
-          }
-        });
+        $scope.favoriteFirebase = $firebase(
+          new Firebase(firebaseUrl + (user.uid || 'guest') + favoriteUrl));
 
         $scope.$watchCollection('playlistFirebase', function() {
           // Innefficient, yes, but if I use [] or simply reassign, it won't work
@@ -135,18 +123,27 @@ angular.module('mixdogeApp')
 
         $scope.addSong = function(song) {
           $scope.playlistFirebase.$add(song);
-          // $scope.playlist.push(song);
         };
 
-        $scope.updateSong = function(song) {
-          //$log.info(song); 
-          $log.info($scope.favoriteList);
-          $scope.upvoteListFirebase = $firebase(new Firebase(firebaseUrl + loginService.user.uid 
-                    + '/upvote_list' + '/-' + song.id));
-          $scope.upvoteListFirebase.$add(song);
-          //song.title = 'favorite song ' + Math.floor(Math.random() * 100);
+        $scope.isFavorite = function(index) {
+          return $scope.favoriteFirebase[$scope.playlistFirebase.$getIndex()[index]] !== undefined;
+        };
 
-          //$scope.playlistFirebase.$save();
+        $scope.toggleFavorite = function(index) {
+          var songKey = $scope.playlistFirebase.$getIndex()[index];
+
+          if (!$scope.isFavorite(index)) {
+            $scope.favoriteFirebase[songKey] = {
+              src: $scope.playlistFirebase[songKey].src,
+              title: $scope.playlistFirebase[songKey].title,
+              playlist_owner: uid,
+              type: 'audio/ogg'
+            };
+
+            $scope.favoriteFirebase.$save(songKey);
+          } else {
+            $scope.favoriteFirebase.$remove(songKey);
+          }
         };
 
         $scope.removeSong = function(index) {
@@ -157,7 +154,6 @@ angular.module('mixdogeApp')
         $scope.$watch('audioPlayer.currentTime',  function(newVal, oldVal) {
           if (Math.abs(newVal - $scope.audioPlayer.duration) <= 1 && oldVal > 0) {
             if ($scope.audioPlayer.currentTrack + 1 > $scope.audioPlayer.tracks) {
-              // $scope.playSong(0);
               $scope.audioPlayer.load($scope.playlist[0], true);
             } else {
               $scope.audioPlayer.next(true);

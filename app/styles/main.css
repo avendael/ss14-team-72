@@ -214,6 +214,10 @@ header a {
   background-image: url(../images/favorite.png);
 }
 
+.song-actions .favorite-filled {
+  background-image: url(../images/favorite_filled.png);
+}
+
 .song-actions .remove {
   background-image: url(../images/remove.png);
 }
