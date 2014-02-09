@@ -18,10 +18,10 @@
     </div>
     <div class="pull-right">
       <a href="#/user">
-        Switch Tape
+        Switch Mix
       </a>
       <a href="#">
-        Your Tape
+        Your Mix
       </a>
       <a href="#" ng-click="logout()">Logout</a>
     </div>
@@ -83,7 +83,7 @@
         <li class="row" ng-repeat="user in firebase">
           <div class="col-md-12">
             <a class="song-title" href="#/user/{{ firebase.$getIndex()[$index] }}">
-              {{ user.username | possessive }} playlist
+              {{ user.username | possessive }} mixdoge
             </a>
           </div>
         </li>

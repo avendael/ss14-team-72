@@ -110,6 +110,7 @@ angular.module('mixdogeApp')
 
           modalInstance.result.then(function(song) {
             song.src = song.uri + '/stream?client_id=' + soundcloudId;
+            song.type = "audio/ogg";
             $scope.addSong(song);
           }, function() {
             $log.info('Modal dismissed at: ' + new Date());
