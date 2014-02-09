@@ -60,6 +60,7 @@ angular.module('mixdogeApp')
       };
 
       $scope.playlist = [];
+      $scope.favoriteList = [];
 
       // Wrap everything in checkLogin because the user must be logged in.
       loginService.checkLogin(function success(user) {
@@ -74,6 +75,19 @@ angular.module('mixdogeApp')
         }
 
         $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + uid + playlistUrl));
+        $scope.favoriteListFirebase = $firebase(new Firebase(firebaseUrl + loginService.user.uid
+                    + '/upvote_list/'));
+
+        $scope.$watchCollection('favoriteListFirebase', function() {
+          $scope.favoriteList.splice(0, $scope.favoriteList.length);
+          var orderedFavoriteList = orderByPriorityFilter($scope.favoriteListFirebase);
+
+          if (!!orderedFavoriteList && !!orderedFavoriteList.forEach) {
+            orderedFavoriteList.forEach(function(element) {
+              $scope.favoriteList.push(element);
+            });
+          }
+        });
 
         $scope.$watchCollection('playlistFirebase', function() {
           // $log.info('song ' + JSON.stringify($scope.playlistFirebase['-JFF_rl9VumGy21nXeoV']));
@@ -126,10 +140,11 @@ angular.module('mixdogeApp')
         };
 
         $scope.updateSong = function(song) {
-          $log.info(song);
-          song.title = 'favorite song ' + Math.floor(Math.random() * 100);
-
-          $scope.playlistFirebase.$save();
+          //$log.info(song); 
+          $log.info($scope.favoriteList);
+          $scope.upvoteListFirebase = $firebase(new Firebase(firebaseUrl + loginService.user.uid 
+                    + '/upvote_list' + '/-' + song.id));
+          $scope.upvoteListFirebase.$add(song);
         };
 
         $scope.removeSong = function(index) {
