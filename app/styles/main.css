@@ -3,7 +3,7 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   background: #fe9;
-  overflow: auto;
+  overflow-x: hidden;
 }
 
 body, h1, h2, h3, h4, h5 {
