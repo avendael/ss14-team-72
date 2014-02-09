@@ -63,13 +63,13 @@ angular.module('mixdogeApp')
 
       // Wrap everything in checkLogin because the user must be logged in.
       loginService.checkLogin(function success(user) {
-        $scope.userFirebase = $firebase(new Firebase(firebaseUrl + user.uid));
+        $scope.userFirebase = $firebase(new Firebase(firebaseUrl + (user.uid || 'guest')));
         $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + user.uid + playlistUrl));
-        $scope.userFirebase.username = user.username;
+        $scope.userFirebase.username = user.username || 'guest';
 
         $scope.userFirebase.$save('username');
         $scope.$watchCollection('playlistFirebase', function() {
-          $log.info('song ' + JSON.stringify($scope.playlistFirebase['-JFF_rl9VumGy21nXeoV']));
+          // $log.info('song ' + JSON.stringify($scope.playlistFirebase['-JFF_rl9VumGy21nXeoV']));
 
           // Innefficient, yes, but if I use [] or simply reassign, it won't work
           $scope.playlist.splice(0, $scope.playlist.length);
