@@ -154,10 +154,13 @@ header h1 span:nth-child(7) { color: #90f; }
   background-size: 160px 64px;
 }
 
+
 .songs ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 480px;
+  overflow-y: scroll;
 }
 .songs li {
   margin: 0 0 5px 0;
