@@ -8,6 +8,21 @@ angular.module('mixdogeApp')
       // noop. We're already here
     });
 
+    doge([
+      'static',
+      'showdown',
+      'doge',
+      'music',
+      'mixtape',
+      'playlist',
+      'awesome',
+      'angular',
+      'firebase',
+      'bootstrap',
+      'animate.css',
+      'soundcloud'
+    ], true);
+
     $scope.onLoginGithub = function() {
       loginService.loginGithub(null, function(error) {
         alert(error);
