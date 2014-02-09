@@ -14,6 +14,12 @@ angular.module('mixdogeApp')
       });
     };
 
+    $scope.onLoginTwitter = function() {
+      loginService.loginTwitter(null, function(err0r) {
+        alert(error);
+      });
+    };
+
     $scope.onLoginGuest = function() {
       loginService.loginGuest(null, function(error) {
         alert(error);

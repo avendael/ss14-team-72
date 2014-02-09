@@ -90,8 +90,6 @@ angular.module('mixdogeApp')
         });
 
         $scope.$watchCollection('playlistFirebase', function() {
-          // $log.info('song ' + JSON.stringify($scope.playlistFirebase['-JFF_rl9VumGy21nXeoV']));
-
           // Innefficient, yes, but if I use [] or simply reassign, it won't work
           $scope.playlist.splice(0, $scope.playlist.length);
           var orderedPlaylist = orderByPriorityFilter($scope.playlistFirebase);
@@ -124,6 +122,7 @@ angular.module('mixdogeApp')
 
           modalInstance.result.then(function(song) {
             song.src = song.uri + '/stream?client_id=' + soundcloudId;
+            song.type = "audio/ogg";
             $scope.addSong(song);
           }, function() {
             $log.info('Modal dismissed at: ' + new Date());
@@ -145,6 +144,9 @@ angular.module('mixdogeApp')
           $scope.upvoteListFirebase = $firebase(new Firebase(firebaseUrl + loginService.user.uid 
                     + '/upvote_list' + '/-' + song.id));
           $scope.upvoteListFirebase.$add(song);
+          //song.title = 'favorite song ' + Math.floor(Math.random() * 100);
+
+          //$scope.playlistFirebase.$save();
         };
 
         $scope.removeSong = function(index) {
@@ -153,21 +155,22 @@ angular.module('mixdogeApp')
 
 
         $scope.$watch('audioPlayer.currentTime',  function(newVal, oldVal) {
-            if (Math.abs(newVal - $scope.audioPlayer.duration) <= 1 && oldVal > 0) {
-                if ($scope.audioPlayer.currentTrack + 1 >= $scope.audioPlayer.tracks) {
-                    $scope.playSong(0);
-                } else {
-                    $scope.audioPlayer.next(true);
-                }
+          if (Math.abs(newVal - $scope.audioPlayer.duration) <= 1 && oldVal > 0) {
+            if ($scope.audioPlayer.currentTrack + 1 > $scope.audioPlayer.tracks) {
+              // $scope.playSong(0);
+              $scope.audioPlayer.load($scope.playlist[0], true);
+            } else {
+              $scope.audioPlayer.next(true);
             }
+          }
         });
-
-        $log.info('playlist firebase ' + JSON.stringify($scope.playlistFirebase));
 
         $scope.$on('audioplayer:play', function() {
           var song = $scope.playlist[$scope.audioPlayer.currentTrack - 1];
-          var tags = song.tag_list.replace(/\"/g, '').split(' ');
-          doge(tags, true);
+          var words = getWords(song.tag_list);
+          words = words.concat(getWords(song.title));
+          words = words.concat(getWords(song.genre));
+          doge(words, true);
         });
 
         $scope.$on('audioplayer:pause', function() {
@@ -176,47 +179,3 @@ angular.module('mixdogeApp')
 
       });
     });
-
-var dogeOn = false;
-var prefixes = ['very', 'much', 'so'];
-
-function randChoice(a) {
-  return a[Math.floor(Math.random() * a.length)];
-}
-
-function randColor() {
-  var rgb = [];
-  for (var i = 0; i < 3; i++) {
-    rgb.push((128 + Math.floor(Math.random() * 128)).toString(16));
-  }
-  return '#' + rgb.join('');
-}
-
-function doge(tags, start) {
-  if (start) {
-    dogeOn = true;
-  }
-  setTimeout(function() {
-    var text = '';
-    if (Math.random() > 0.05) {
-      text = randChoice(prefixes);
-      text += ' ' + randChoice(tags).toLowerCase();
-    } else {
-      text = 'wow';
-    }
-    var span = document.createElement('span');
-    span.className = 'doge-text fadeOut animated';
-    span.innerText = text;
-    span.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
-    span.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
-    span.style.fontSize = (8 + Math.random() * 20) + 'px';
-    span.style.color = randColor();
-    $(span).one('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
-      $(this).remove();
-    });
-    document.body.appendChild(span);
-    if (dogeOn) {
-      doge(tags);
-    }
-  }, Math.random() * 500);
-}

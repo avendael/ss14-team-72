@@ -1,18 +1,14 @@
 /* Space out content a bit */
+
 body {
   padding-top: 20px;
   padding-bottom: 20px;
   background: #fe9;
-  overflow: auto;
+  overflow-x: hidden;
 }
 
 body, h1, h2, h3, h4, h5 {
   font-family: Comic Sans MS, Patrick Hand, cursive;
-}
-
-.mixdoge {
-  width: 512px;
-  margin: 0 auto;
 }
 
 header {
@@ -25,6 +21,14 @@ header h1 {
   line-height: 1;
 }
 
+header h1 span:nth-child(1) { color: #f90; }
+header h1 span:nth-child(2) { color: #f0f; }
+header h1 span:nth-child(3) { color: #09f; }
+header h1 span:nth-child(4) { color: #0f3; }
+header h1 span:nth-child(5) { color: #99f; }
+header h1 span:nth-child(6) { color: #00f; }
+header h1 span:nth-child(7) { color: #90f; }
+
 header a {
   border: 1px solid;
   border-radius: 6px;
@@ -35,13 +39,26 @@ header a {
   text-transform: lowercase;
 }
 
-header h1 span:nth-child(1) { color: #f90; }
-header h1 span:nth-child(2) { color: #f0f; }
-header h1 span:nth-child(3) { color: #09f; }
-header h1 span:nth-child(4) { color: #0f3; }
-header h1 span:nth-child(5) { color: #99f; }
-header h1 span:nth-child(6) { color: #00f; }
-header h1 span:nth-child(7) { color: #90f; }
+.landing {
+  text-align: center;
+}
+
+.landing header {
+  margin-bottom: 40px;
+}
+
+.landing header h1 {
+  font-size: 72px;
+}
+
+.landing .walkman {
+  margin-bottom: 40px;
+}
+
+.mixdoge {
+  width: 512px;
+  margin: 0 auto;
+}
 
 /* Walkman */
 .walkman {
@@ -57,15 +74,19 @@ header h1 span:nth-child(7) { color: #90f; }
   width: 512px;
   height: 370px;
 }
+
 @-webkit-keyframes spin {
-  to { transform: rotate(1turn); }
+  to { -webkit-transform: rotate(1turn); }
 }
+
 @-moz-keyframes spin {
-  to { transform: rotate(1turn); }
+  to { -moz-transform: rotate(1turn); }
 }
+
 @-o-keyframes spin {
-  to { transform: rotate(1turn); }
+  to { -o-transform: rotate(1turn); }
 }
+
 @keyframes spin {
   to { transform: rotate(1turn); }
 }

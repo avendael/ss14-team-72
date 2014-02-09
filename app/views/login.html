@@ -1,4 +1,33 @@
+<div class="landing">
+
+<header>
+  <h1>
+    <span>m</span>
+    <span>i</span>
+    <span>x</span>
+    <span>d</span>
+    <span>o</span>
+    <span>g</span>
+    <span>e</span>
+  </h1>
+  <h2 class="desc">Mixtapes. DOGE style!</h2>
+</header>
+
+<div class="walkman">
+  <img class="walkman-part" src="images/walkman-back.png">
+  <img class="walkman-part" src="images/tape-back.png">
+  <img class="tape-doge tape-doge-1 tape-doge-spin" src="images/doge-1.png">
+  <img class="tape-doge tape-doge-2 tape-doge-spin" src="images/doge-2.png">
+  <img class="walkman-part" src="images/tape-front.png">
+  <img class="walkman-part" src="images/walkman-front.png">
+</div>
+
 <div class="row">
+  <button class="btn btn-primary"
+          name="twitterLogin"
+          ng-click="onLoginTwitter()">
+    <i class="fa fa-twitter"></i> Twitter Login
+  </button>
   <button class="btn btn-primary"
           name="githubLogin"
           ng-click="onLoginGithub()">
@@ -10,3 +39,21 @@
     <i class="fa fa-user"></i> Guest Login
   </button>
 </div>
+
+</div>
+
+<script>
+  doge([
+    'static',
+    'showdown',
+    'doge',
+    'music',
+    'mixtape',
+    'playlist',
+    'awesome',
+    'angular',
+    'firebase',
+    'bootstrap',
+    'animate.css'
+  ], true);
+</script>
