@@ -13,6 +13,12 @@
     </h1>
   </div>
   <div class="pull-right">
+    <a href="#/user">
+      Switch Tape
+    </a>
+    <a href="#">
+      Your Tape
+    </a>
     <a href="#" ng-click="logout()">Logout</a>
   </div>
 </header>
@@ -111,7 +117,7 @@
   </ul>
 </div>
 
-<div class="add">
+<div class="add" ng-show="!disallowAdding">
   <button class="add-url" ng-click="openAddSongUrl()">Add URL</button>
   <button class="soundcloud" ng-click="openAddSoundcloudTrack()">Soundcloud</button>
 </div>

@@ -15,11 +15,15 @@ angular.module('mixdogeApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/login', {
+      .when('/login/?', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
-      .when('/user', {
+      .when('/user/:userKey/?', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
+      .when('/user/?', {
         templateUrl: 'views/user.html',
         controller: 'UserCtrl'
       })

@@ -1,5 +1,100 @@
-<ul>
-  <li ng-repeat="user in firebase">
-    {{ user.username }}
-  </li>
-</ul>
+<!-- <ul> -->
+<!--   <li ng-repeat="user in firebase"> -->
+<!--     {{ user.username }} -->
+<!--   </li> -->
+<!-- </ul> -->
+<div class="mixdoge">
+  <header class="clearfix">
+    <div class="pull-left">
+      <h1>
+        <span>m</span>
+        <span>i</span>
+        <span>x</span>
+        <span>d</span>
+        <span>o</span>
+        <span>g</span>
+        <span>e</span>
+      </h1>
+    </div>
+    <div class="pull-right">
+      <a href="#/user">
+        Switch Tape
+      </a>
+      <a href="#">
+        Your Tape
+      </a>
+      <a href="#" ng-click="logout()">Logout</a>
+    </div>
+  </header>
+
+  <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
+  </audio>
+
+  <div class="walkman">
+    <img class="walkman-part" src="images/walkman-back.png">
+    <img class="walkman-part" src="images/tape-back.png">
+    <img class="tape-doge tape-doge-1" src="images/doge-1.png"
+         ng-class="{'tape-doge-spin': audioPlayer.playing}">
+    <img class="tape-doge tape-doge-2" src="images/doge-2.png"
+         ng-class="{'tape-doge-spin': audioPlayer.playing}">
+    <img class="walkman-part" src="images/tape-front.png">
+    <img class="walkman-part" src="images/walkman-front.png">
+    <div class="walkman-controls clearfix">
+      <button
+         ng-click="audioPlayer.prev()">
+        Prev
+      </button>
+      <button
+         ng-show="audioPlayer.playing"
+         ng-click="audioPlayer.pause()">
+        Play
+      </button>
+      <button
+         ng-show="!audioPlayer.playing"
+         ng-click="audioPlayer.play()">
+        Play
+      </button>
+      <button
+         ng-click="audioPlayer.next(true)">
+        Next
+      </button>
+    </div>
+    <div class="progress">
+      <div class="progress-bar"
+           role="progressbar"
+           aria-valuemin="0"
+           aria-valuemax="100"
+           ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"
+           style="width: 100.00000000000001%; height: 40px">
+        <span class="sr-only ng-binding" style="height: 40px">100.00000000000001% Complete</span>
+      </div>
+      <div class="time" ng-show="audioPlayer.formatTime" style="height: 40px">
+        <span class="ng-binding">{{ audioPlayer.currentTime | number:2 }}</span>
+        <b>/</b>
+        <span class="ng-binding">{{ audioPlayer.duration | number:2 }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="playlist">
+
+    <div class="songs">
+      <ul>
+        <li class="row" ng-repeat="user in firebase">
+          <div class="col-md-12">
+            <a class="song-title" href="#/user/{{ firebase.$getIndex()[$index] }}">
+              {{ user.username | possessive }} playlist
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ss14-team-72.divshot.io" data-text="Check out MixDoge by Daruma Tactics" data-via="staticshowdown">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+  </div>
+
+</div>

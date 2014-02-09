@@ -46,7 +46,7 @@ var AddSoundcloudTrackCtrl = function($scope, $modalInstance, $log, $timeout) {
 angular.module('mixdogeApp')
   .controller(
     'MainCtrl',
-    function ($scope, $firebase, $log, $modal, firebaseUrl, playlistUrl,
+    function ($scope, $firebase, $modal, $routeParams, $log, firebaseUrl, playlistUrl,
               loginService, soundcloudId, orderByPriorityFilter) {
       $scope.audioPlayer = {
         max: 0,
@@ -63,11 +63,18 @@ angular.module('mixdogeApp')
 
       // Wrap everything in checkLogin because the user must be logged in.
       loginService.checkLogin(function success(user) {
-        $scope.userFirebase = $firebase(new Firebase(firebaseUrl + (user.uid || 'guest')));
-        $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + user.uid + playlistUrl));
-        $scope.userFirebase.username = user.username || 'guest';
+        var uid = $routeParams.userKey || user.uid  || 'guest';
 
-        $scope.userFirebase.$save('username');
+        if (uid === user.uid) {
+          $scope.userFirebase = $firebase(new Firebase(firebaseUrl + uid));
+          $scope.userFirebase.username = user.username || 'guest';
+          $scope.userFirebase.$save('username');
+        } else {
+          $scope.disallowAdding = true;
+        }
+
+        $scope.playlistFirebase = $firebase(new Firebase(firebaseUrl + uid + playlistUrl));
+
         $scope.$watchCollection('playlistFirebase', function() {
           // $log.info('song ' + JSON.stringify($scope.playlistFirebase['-JFF_rl9VumGy21nXeoV']));
 
@@ -198,4 +205,3 @@ function doge(tags, start) {
     }
   }, Math.random() * 500);
 }
-
