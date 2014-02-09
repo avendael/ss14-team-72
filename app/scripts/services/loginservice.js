@@ -52,6 +52,28 @@ angular.module('mixdogeApp')
         });
       };
 
+      /**
+       * Firebase login using Twitter OAuth.
+       *
+       * @param {Function} the success callback
+       * @param {Function} the fail callback
+       */
+      loginService.loginTwitter = function(success, fail) {
+        loginService.$login('twitter').then(function(user) {
+          if (!!success) success(user);
+          else loginService.redirectToMain();
+        }, function(error) {
+          if (!!fail) fail(error);
+          else loginService.redirectToLogin();
+        });
+      };
+
+      /**
+       * Login as a guest.
+       *
+       * @param {Function} the success callback
+       * @param {Function} the fail callback
+       */
       loginService.loginGuest = function(success, fail) {
         loginService.$login('password', {
           email: 'guest@ss14-team-72.firebaseapp.com',
@@ -64,6 +86,7 @@ angular.module('mixdogeApp')
           else loginService.redirectToLogin();
         });
       };
+
       /**
        * An alias for loginService.$logout. Watch for the '$firebaseSimpleLogin:logout'
        * event to execute a callback after this runs.

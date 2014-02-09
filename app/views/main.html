@@ -95,13 +95,14 @@
   <ul>
     <li class="row" ng-repeat="song in playlistFirebase">
       <div class="col-md-2">
-        <img class="song-artwork" src="{{ song.artwork_url }}">
+        <img class="song-artwork"
+             src="{{ song.artwork_url }}"
+             ng-click="playSong($index)">
       </div>
       <div class="col-md-8">
         <a class="song-title" href="javascript:void(0)"
-          ng-class="{active: audioPlayer.currentTrack - 1 === $index}"
-          ng-click="playSong($index)"
-          >
+           ng-class="{active: audioPlayer.currentTrack - 1 === $index}"
+           ng-click="playSong($index)">
           {{ song.title }}
         </a>
       </div>
