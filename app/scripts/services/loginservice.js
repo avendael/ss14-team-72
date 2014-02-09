@@ -52,6 +52,18 @@ angular.module('mixdogeApp')
         });
       };
 
+      loginService.loginGuest = function(success, fail) {
+        loginService.$login('password', {
+          email: 'guest@ss14-team-72.firebaseapp.com',
+          password: 'guest'
+        }).then(function(user) {
+          if (!!success) success(user);
+          else loginService.redirectToMain();
+        }, function(error) {
+          if (!!fail) fail(error);
+          else loginService.redirectToLogin();
+        });
+      };
       /**
        * An alias for loginService.$logout. Watch for the '$firebaseSimpleLogin:logout'
        * event to execute a callback after this runs.
