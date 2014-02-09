@@ -194,7 +194,7 @@ function doge(tags, start) {
     span.className = 'doge-text fadeOut animated';
     span.innerText = text;
     span.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
-    span.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
+    span.style.top = (50 + Math.floor(Math.random() * (window.innerHeight - 100))) + 'px';
     span.style.fontSize = (8 + Math.random() * 20) + 'px';
     span.style.color = randColor();
     $(span).one('animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', function() {
