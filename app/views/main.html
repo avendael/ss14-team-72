@@ -68,6 +68,8 @@
 
 <div class="playlist">
 
+<!--
+
 <form role="form">
   <div class="form-group">
     <div class="row">
@@ -81,31 +83,34 @@
   </div>
 </form>
 
+-->
+
+<div class="songs">
+  <ul>
+    <li class="row" ng-repeat="song in playlistFirebase">
+      <div class="col-md-2">
+        <img class="song-artwork" src="{{ song.artwork_url }}">
+      </div>
+      <div class="col-md-8">
+        <a class="song-title" href="javascript:void(0)" ng-click="playSong($index)">
+          {{ song.title }}
+        </a>
+      </div>
+      <div class="song-actions col-md-2">
+        <button class="favorite" ng-click="updateSong(song)">
+          Favorite
+        </button>
+        <button class="remove" ng-click="removeSong($index)">
+          Remove
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
+
 <div class="add">
   <button class="add-url" ng-click="openAddSongUrl()">Add URL</button>
   <button class="soundcloud" ng-click="openAddSoundcloudTrack()">Soundcloud</button>
-</div>
-
-<div class="row">
-  <div>
-    <ul class="list-group" style="height:500px;overflow:auto;">
-      <li class="list-group-item row" ng-repeat="song in playlistFirebase">
-        <div class="col-md-2">
-          <button type="button" ng-click="updateSong(song)" class="btn btn-default">
-            <span class="glyphicon glyphicon-thumbs-up"></span>
-          </button>
-          <button type="button" class="btn btn-default" ng-click="removeSong($index)">
-            <span class="glyphicon glyphicon-trash"></span>
-          </button>
-        </div>
-        <div class="col-md-10">
-          <a href="javascript:void(0)" class="list-group-item" ng-click="playSong($index)">
-            {{ song.title }}
-          </a>
-        </div>
-      </li>
-    </ul>
-  </div>
 </div>
 
 </div>
