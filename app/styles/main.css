@@ -57,15 +57,19 @@ header h1 span:nth-child(7) { color: #90f; }
   width: 512px;
   height: 370px;
 }
+
 @-webkit-keyframes spin {
-  to { transform: rotate(1turn); }
+  to { -webkit-transform: rotate(1turn); }
 }
+
 @-moz-keyframes spin {
-  to { transform: rotate(1turn); }
+  to { -moz-transform: rotate(1turn); }
 }
+
 @-o-keyframes spin {
-  to { transform: rotate(1turn); }
+  to { -o-transform: rotate(1turn); }
 }
+
 @keyframes spin {
   to { transform: rotate(1turn); }
 }
