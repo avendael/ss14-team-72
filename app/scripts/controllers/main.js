@@ -128,6 +128,18 @@ angular.module('mixdogeApp')
         $scope.removeSong = function(index) {
           $scope.playlistFirebase.$remove($scope.playlistFirebase.$getIndex()[index]);
         };
+
+
+        $scope.$watch('audioPlayer.currentTime',  function(newVal, oldVal) {
+            if (Math.abs(newVal - $scope.audioPlayer.duration) <= 1 && oldVal > 0) {
+                if ($scope.audioPlayer.currentTrack + 1 >= $scope.audioPlayer.tracks) {
+                    $scope.playSong(0);
+                } else {
+                    $scope.audioPlayer.next(true);
+                }
+            }  
+        });
+     
         $log.info('playlist firebase ' + JSON.stringify($scope.playlistFirebase));
       });
     });
