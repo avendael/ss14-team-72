@@ -1,15 +1,21 @@
 <div class="mixdoge">
 
-<h1>
-  <span>m</span>
-  <span>i</span>
-  <span>x</span>
-  <span>d</span>
-  <span>o</span>
-  <span>g</span>
-  <span>e</span>
-</h1>
-<a href="#" ng-click="logout()">Logout</a>
+<header class="clearfix">
+  <div class="pull-left">
+    <h1>
+      <span>m</span>
+      <span>i</span>
+      <span>x</span>
+      <span>d</span>
+      <span>o</span>
+      <span>g</span>
+      <span>e</span>
+    </h1>
+  </div>
+  <div class="pull-right">
+    <a href="#" ng-click="logout()">Logout</a>
+  </div>
+</header>
 
 <audio data-player-control="audioPlayer" data-playlist="playlist" audio-player>
 </audio>
@@ -43,23 +49,24 @@
       Next
     </button>
   </div>
+  <div class="progress">
+    <div class="progress-bar"
+         role="progressbar"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"
+         style="width: 100.00000000000001%; height: 40px">
+      <span class="sr-only ng-binding" style="height: 40px">100.00000000000001% Complete</span>
+    </div>
+    <div class="time" ng-show="audioPlayer.formatTime" style="height: 40px">
+      <span class="ng-binding">{{ audioPlayer.currentTime | number:2 }}</span>
+      <b>/</b>
+      <span class="ng-binding">{{ audioPlayer.duration | number:2 }}</span>
+    </div>
+  </div>
 </div>
 
-<div class="progress">
-  <div class="progress-bar"
-       role="progressbar"
-       aria-valuemin="0"
-       aria-valuemax="100"
-       ng-style="{ width: audioPlayer.currentTime*100/audioPlayer.duration + '%' }"
-       style="width: 100.00000000000001%; height: 40px">
-    <span class="sr-only ng-binding" style="height: 40px">100.00000000000001% Complete</span>
-  </div>
-  <div class="time" ng-show="audioPlayer.formatTime" style="height: 40px">
-    <span class="ng-binding">{{ audioPlayer.currentTime | number:2 }}</span>
-    <b>/</b>
-    <span class="ng-binding">{{ audioPlayer.duration | number:2 }}</span>
-  </div>
-</div>
+<div class="playlist">
 
 <form role="form">
   <div class="form-group">
@@ -99,6 +106,8 @@
       </li>
     </ul>
   </div>
+</div>
+
 </div>
 
 <script type="text/ng-template" id="add-soundcloud.html">

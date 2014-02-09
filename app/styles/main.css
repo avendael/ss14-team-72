@@ -14,17 +14,28 @@ body, h1, h2, h3, h4, h5 {
   margin: 0 auto;
 }
 
-.mixdoge h1 {
-  letter-spacing: -0.2em;
+header {
+  margin-bottom: 20px;
 }
 
-.mixdoge h1 span:nth-child(1) { color: #f90; }
-.mixdoge h1 span:nth-child(2) { color: #f0f; }
-.mixdoge h1 span:nth-child(3) { color: #09f; }
-.mixdoge h1 span:nth-child(4) { color: #0f3; }
-.mixdoge h1 span:nth-child(5) { color: #99f; }
-.mixdoge h1 span:nth-child(6) { color: #00f; }
-.mixdoge h1 span:nth-child(7) { color: #90f; }
+header h1 {
+  letter-spacing: -0.2em;
+  margin: 0;
+  line-height: 1;
+}
+
+header a {
+  line-height: 36px;
+  display: inline-block;
+}
+
+header h1 span:nth-child(1) { color: #f90; }
+header h1 span:nth-child(2) { color: #f0f; }
+header h1 span:nth-child(3) { color: #09f; }
+header h1 span:nth-child(4) { color: #0f3; }
+header h1 span:nth-child(5) { color: #99f; }
+header h1 span:nth-child(6) { color: #00f; }
+header h1 span:nth-child(7) { color: #90f; }
 
 /* Walkman */
 .walkman {
@@ -75,12 +86,12 @@ body, h1, h2, h3, h4, h5 {
 }
 .tape-doge-1 {
   width: 184px;
-  top: 95px;
+  top: 125px;
   left: 60px;
 }
 .tape-doge-2 {
   width: 176px;
-  top: 100px;
+  top: 130px;
   right: 60px;
 }
 .walkman-controls {
@@ -96,13 +107,25 @@ body, h1, h2, h3, h4, h5 {
   margin-left: 10px;
 }
 .progress {
-  margin: 20px 0;
-  color: #f0f;
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 50px;
+  color: #5c646c;
   box-shadow: none;
-  background-color: #fcf;
+  background-color: #bcc4c4;
+  border: 1px #5c646c solid;
+  border-radius: 0;
 }
 .progress-bar {
-  background-color: #f0f;
+  background-color: #5c646c;
+}
+
+.playlist {
+  background: white;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 20px 0;
 }
 .add {
   margin: 20px 0;
