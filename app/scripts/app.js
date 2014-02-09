@@ -33,7 +33,6 @@ angular.module('mixdogeApp', [
   })
   .run(function($rootScope, $log, loginService) {
     $rootScope.$on('$firebaseSimpleLogin:logout', function(event) {
-      $log.info('logout event ' + event);
       loginService.redirectToLogin();
     });
     $rootScope.$on('$routeChangeSuccess', function() {
