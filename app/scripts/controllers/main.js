@@ -13,12 +13,15 @@ var AddSongUrlCtrl = function($scope, $modalInstance) {
 var AddSoundcloudTrackCtrl = function($scope, $modalInstance, $log, $timeout) {
   $scope.currentPage = 0;
   $scope.tracks = [];
+  $scope.isLoading = true;
 
   var getTracks = function() {
+    $scope.isLoading = true;
     SC.get('/tracks?filter=public',
-           {offset: $scope.currentPage * 10, limit: 10},
+           {offset: $scope.currentPage * 5, limit: 5},
            function(tracks) {
              $scope.$apply(function() {
+               $scope.isLoading = false;
                $scope.tracks = tracks;
              });
            });
@@ -47,7 +50,7 @@ angular.module('mixdogeApp')
   .controller(
     'MainCtrl',
     function ($scope, $firebase, $modal, $routeParams, $log, firebaseUrl, playlistUrl,
-              favoriteUrl, loginService, soundcloudId, orderByPriorityFilter) {
+              favoriteUrl, loginService, soundcloudId, orderByPriorityFilter, ngProgress) {
       $scope.audioPlayer = {
         max: 0,
         position: 0
@@ -119,6 +122,8 @@ angular.module('mixdogeApp')
 
         $scope.playSong = function(index) {
           $scope.audioPlayer.play(index);
+
+          if ($scope.audioPlayer.buffered.length === 0) ngProgress.start();
         };
 
         $scope.addSong = function(song) {

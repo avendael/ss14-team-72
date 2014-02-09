@@ -7,7 +7,8 @@ angular.module('mixdogeApp', [
   'ngRoute',
   'firebase',
   'ui.bootstrap',
-  'audioPlayer'
+  'audioPlayer',
+  'ngProgress'
 ])
   .config(function($routeProvider) {
     $routeProvider
@@ -37,6 +38,14 @@ angular.module('mixdogeApp', [
     });
     $rootScope.$on('$routeChangeSuccess', function() {
       dogeOn = false;
+    });
+  })
+  .run(function($rootScope, $log, ngProgress) {
+    $rootScope.$on('audioplayer:play', function(event) {
+      ngProgress.complete();
+    });
+    $rootScope.$on('audioplayer:pause', function(event) {
+      if (ngProgress.status() > 0) ngProgress.complete();
     });
   })
   .run(function(soundcloudId) {
