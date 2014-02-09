@@ -2,78 +2,204 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  background: #fe9;
+  overflow: hidden;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+body, h1, h2, h3, h4, h5 {
+  font-family: Comic Sans MS, Patrick Hand, cursive;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+.mixdoge {
+  width: 512px;
+  margin: 0 auto;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+header {
+  margin-bottom: 20px;
 }
 
-/* Customize container */
-/* @media (min-width: 768px) { */
-/*   .container { */
-/*     max-width: 730px; */
-/*   } */
-/* } */
-/* .container-narrow > hr { */
-/*   margin: 30px 0; */
-/* } */
+header h1 {
+  letter-spacing: -0.2em;
+  margin: 0;
+  line-height: 1;
+}
 
-/* Main marketing message and sign up button */
-.jumbotron {
+header a {
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 0 5px;
+  display: inline-block;
+  line-height: 20px;
+  margin-top: 8px;
+  text-transform: lowercase;
+}
+
+header h1 span:nth-child(1) { color: #f90; }
+header h1 span:nth-child(2) { color: #f0f; }
+header h1 span:nth-child(3) { color: #09f; }
+header h1 span:nth-child(4) { color: #0f3; }
+header h1 span:nth-child(5) { color: #99f; }
+header h1 span:nth-child(6) { color: #00f; }
+header h1 span:nth-child(7) { color: #90f; }
+
+/* Walkman */
+.walkman {
+  position: relative;
+  width: 512px;
+  height: 370px;
+  margin: 0 auto;
+}
+.walkman-part {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 512px;
+  height: 370px;
+}
+@-webkit-keyframes spin {
+  to { transform: rotate(1turn); }
+}
+@-moz-keyframes spin {
+  to { transform: rotate(1turn); }
+}
+@-o-keyframes spin {
+  to { transform: rotate(1turn); }
+}
+@keyframes spin {
+  to { transform: rotate(1turn); }
+}
+.tape-doge {
+  position: absolute;
+  -webkit-animation: spin 5s infinite; /* Safari 4+ */
+  -moz-animation:    spin 5s infinite; /* Fx 5+ */
+  -o-animation:      spin 5s infinite; /* Opera 12+ */
+  animation:         spin 5s infinite; /* IE 10+ */
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-play-state: paused;
+  -moz-animation-play-state: paused;
+  -o-animation-play-state: paused;
+  animation-play-state: paused;
+}
+.tape-doge-spin {
+  -webkit-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -o-animation-play-state: running;
+  animation-play-state: running;
+}
+.tape-doge-1 {
+  width: 184px;
+  top: 125px;
+  left: 60px;
+}
+.tape-doge-2 {
+  width: 176px;
+  top: 130px;
+  right: 60px;
+}
+.walkman-controls {
+  position: absolute;
+  right: 66px;
+}
+.walkman-controls button {
+  float: left;
+  border: 0;
+  background: transparent;
+  text-indent: -1000em;
+  width: 57px;
+  margin-left: 10px;
+}
+
+.progress {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 50px;
+  color: #5c646c;
+  box-shadow: none;
+  background-color: #bcc4c4;
+  border: 1px #5c646c solid;
+  border-radius: 0;
+}
+.progress-bar {
+  background-color: #5c646c;
+}
+
+.playlist {
+  background: white;
+  padding: 10px;
+  margin: 20px 0;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.add {
+  margin: 20px 0;
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
 }
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+.add button {
+  width: 160px;
+  height: 64px;
+  border: 0;
+  text-indent: -1000em;
+}
+.add .add-url {
+  background: url(../images/add-url.png) no-repeat center center;
+  background-size: 160px 64px;
+}
+.add .soundcloud {
+  background: url(../images/soundcloud.png) no-repeat center center;
+  background-size: 160px 64px;
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
+.songs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.marketing p + h4 {
-  margin-top: 28px;
+.songs li {
+  margin: 0 0 5px 0;
+  padding: 0;
+  line-height: 32px;
+}
+.song-title {
+  font-size: 24px;
+  color: inherit;
+  border-bottom: 2px solid;
+}
+.song-title:hover {
+  text-decoration: none;
+}
+.song-title.active {
+  background-color: #cef;
+}
+.song-artwork {
+  width: 100%;
+}
+.song-actions button {
+  border: 0;
+  background: no-repeat center center;
+  background-size: 16px 16px;
+  width: 16px;
+  text-indent: -1000em;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+.song-actions .favorite {
+  background-image: url(../images/favorite.png);
+}
+
+.song-actions .remove {
+  background-image: url(../images/remove.png);
+}
+
+.doge-text {
+  position: absolute;
+  white-space: nowrap;
+  z-index: -1000;
+  -webkit-animation-duration: 10s;
+  -moz-animation-duration: 10s;
+  -o-animation-duration: 10s;
+  animation-duration: 10s;
 }
