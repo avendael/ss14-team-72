@@ -147,8 +147,10 @@ angular.module('mixdogeApp')
 
         $scope.$on('audioplayer:play', function() {
           var song = $scope.playlist[$scope.audioPlayer.currentTrack - 1];
-          var tags = song.tag_list.replace(/\"/g, '').split(' ');
-          doge(tags, true);
+          var words = getWords(song.tag_list);
+          words = words.concat(getWords(song.title));
+          words = words.concat(getWords(song.genre));
+          doge(words, true);
         });
 
         $scope.$on('audioplayer:pause', function() {
@@ -160,6 +162,17 @@ angular.module('mixdogeApp')
 
 var dogeOn = false;
 var prefixes = ['very', 'much', 'so'];
+
+function getWords(s) {
+  var words = [];
+  s.toLowerCase().replace(/[^a-z]/g, ' ').split(' ').forEach(function(w) {
+    w = w.trim();
+    if (w.length) {
+      words.push(w);
+    }
+  });
+  return words;
+}
 
 function randChoice(a) {
   return a[Math.floor(Math.random() * a.length)];
@@ -173,15 +186,17 @@ function randColor() {
   return '#' + rgb.join('');
 }
 
-function doge(tags, start) {
+function doge(words, start) {
   if (start) {
     dogeOn = true;
   }
   setTimeout(function() {
     var text = '';
     if (Math.random() > 0.05) {
-      text = randChoice(prefixes);
-      text += ' ' + randChoice(tags).toLowerCase();
+      if (Math.random() > 0.6) {
+        text = randChoice(prefixes) + ' ';
+      }
+      text += randChoice(words);
     } else {
       text = 'wow';
     }
@@ -197,7 +212,7 @@ function doge(tags, start) {
     });
     document.body.appendChild(span);
     if (dogeOn) {
-      doge(tags);
+      doge(words);
     }
-  }, Math.random() * 500);
+  }, Math.random() * 250);
 }
