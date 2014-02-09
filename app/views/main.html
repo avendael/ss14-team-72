@@ -76,10 +76,12 @@
 
     <div class="songs">
       <ul>
+        <li class="song-title"
+            ng-show="playlist.length === 0">Empty Mixdoge</li>
         <li class="row" ng-repeat="song in playlistFirebase">
           <div class="col-md-2">
             <img class="song-artwork"
-                 src="{{ song.artwork_url }}"
+                 src="{{ song.artwork_url || 'images/doge_avatar.jpeg' }}"
                  ng-click="playSong($index)">
           </div>
           <div class="col-md-8">
