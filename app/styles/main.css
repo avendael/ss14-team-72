@@ -172,6 +172,9 @@ header h1 span:nth-child(7) { color: #90f; }
 .song-title:hover {
   text-decoration: none;
 }
+.song-title.active {
+  background-color: #cef;
+}
 .song-artwork {
   width: 100%;
 }

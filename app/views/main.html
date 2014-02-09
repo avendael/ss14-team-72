@@ -24,9 +24,9 @@
   <img class="walkman-part" src="images/walkman-back.png">
   <img class="walkman-part" src="images/tape-back.png">
   <img class="tape-doge tape-doge-1" src="images/doge-1.png"
-    ng-class="audioPlayer.playing ? 'tape-doge-spin' : ''">
+    ng-class="{'tape-doge-spin': audioPlayer.playing}">
   <img class="tape-doge tape-doge-2" src="images/doge-2.png"
-    ng-class="audioPlayer.playing ? 'tape-doge-spin' : ''">
+    ng-class="{'tape-doge-spin': audioPlayer.playing}">
   <img class="walkman-part" src="images/tape-front.png">
   <img class="walkman-part" src="images/walkman-front.png">
   <div class="walkman-controls clearfix">
@@ -92,7 +92,10 @@
         <img class="song-artwork" src="{{ song.artwork_url }}">
       </div>
       <div class="col-md-8">
-        <a class="song-title" href="javascript:void(0)" ng-click="playSong($index)">
+        <a class="song-title" href="javascript:void(0)"
+          ng-class="{active: audioPlayer.currentTrack - 1 === $index}"
+          ng-click="playSong($index)"
+          >
           {{ song.title }}
         </a>
       </div>
