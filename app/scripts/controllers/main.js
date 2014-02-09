@@ -145,17 +145,17 @@ angular.module('mixdogeApp')
         $scope.$on('audioplayer:play', function() {
           var song = $scope.playlist[$scope.audioPlayer.currentTrack - 1];
           var tags = song.tag_list.replace(/\"/g, '').split(' ');
-          dogeOn(tags);
+          doge(tags, true);
         });
 
         $scope.$on('audioplayer:pause', function() {
-          dogeOff();
+          dogeOn = false;
         });
 
       });
     });
 
-var dogeInterval;
+var dogeOn = false;
 var prefixes = ['very', 'much', 'so'];
 
 function randChoice(a) {
@@ -170,8 +170,11 @@ function randColor() {
   return '#' + rgb.join('');
 }
 
-function dogeOn(tags) {
-  dogeInterval = setTimeout(function() {
+function doge(tags, start) {
+  if (start) {
+    dogeOn = true;
+  }
+  setTimeout(function() {
     var text = '';
     if (Math.random() > 0.05) {
       text = randChoice(prefixes);
@@ -190,10 +193,9 @@ function dogeOn(tags) {
       $(this).remove();
     });
     document.body.appendChild(span);
-    dogeOn(tags);
+    if (dogeOn) {
+      doge(tags);
+    }
   }, Math.random() * 500);
 }
 
-function dogeOff() {
-  clearTimeout(dogeInterval);
-}
